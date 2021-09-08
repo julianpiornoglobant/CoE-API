@@ -1,4 +1,6 @@
- #Import the Flask module that has been installed.
+#Import the Flask module that has been installed.
+
+import socket
 from flask import Flask, jsonify
 
 # Createing a "books" JSON / dict to emulate data coming from a database.
@@ -25,6 +27,14 @@ app = Flask(__name__)
 # Generic Python function that returns "Hello world!"
 def index():
     return "Hello World!"
+
+@app.route("/ip")
+# Generic Python function that returns "Hello world!"
+def ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+
+    return s.getsockname()[0]
 
 # Annotation that allows the function to be hit at the specific URL. Indicates a GET HTTP method.
 @app.route("/library/v1.0/books", methods=["GET"])
