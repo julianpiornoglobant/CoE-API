@@ -1,7 +1,8 @@
 #Import the Flask module that has been installed.
 
 import socket
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+import json
 
 # Createing a "books" JSON / dict to emulate data coming from a database.
 books = [
@@ -36,12 +37,14 @@ def ip():
 
     return s.getsockname()[0]
 
+
 # Annotation that allows the function to be hit at the specific URL. Indicates a GET HTTP method.
 @app.route("/library/v1.0/books", methods=["GET"])
 # Function that will run when the endpoint is hit.
 def get_books():
     # Returns a JSON of the books defined above. jsonify is a Flask function that serializes the object for us.
     return jsonify({"books": books})
+
 
 # Annotation that allows the function to be hit at the specific URL with a parameter. Indicates a GET HTTP method.
 @app.route("/library/v1.0/books/<int:book_id>", methods=["GET"])
@@ -59,6 +62,14 @@ def get_book(book_id):
 
     # Returns the book in JSON form or an empty dictionary. Should handle the error like 404, but will not cover here.
     return result
+
+
+@app.route('/api/book', methods=['POST'])
+def create_book():
+    request_data = request.get_json()
+    books.append(request_data['book'])
+    return json.dumps(books)
+
 
 # Checks to see if the name of the package is the run as the main package.
 if __name__ == "__main__":
