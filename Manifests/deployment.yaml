@@ -22,7 +22,7 @@ spec:
         proyecto: coedevops
     spec:
       containers:
-      - image: pablitorub/pr-api:1.0
+      - image: #{imagen}#
         imagePullPolicy: Always
         name: pr-api
         ports:
