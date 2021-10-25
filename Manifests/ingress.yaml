@@ -8,13 +8,13 @@ metadata:
   generation: 1
   name: api-ingress
   spec:
-  rules:
-  - host: test1.dev.abinbev-las.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: api
-            port:
-              number: 80
-        pathType: ImplementationSpecific
+    rules:
+    - host: test1.dev.abinbev-las.com
+      http:
+        paths:
+        - backend:
+            service:
+              name: api
+              port:
+                number: 80
+          pathType: ImplementationSpecific
