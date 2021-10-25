@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api
+  namespace: coedevops-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: api
+        proyecto: coedevops
+    spec:
+      containers:
+      - image: pablitorub/pr-api:1.0
+        imagePullPolicy: Always
+        name: pr-api
+        ports:
+        - containerPort: 5000
+          protocol: TCP
