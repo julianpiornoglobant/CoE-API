@@ -1,0 +1,70 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/lpe-api",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/api/v1/orders": {
+            "post": {
+                "tags": [
+                    "process-order-controller"
+                ],
+                "summary": "Value new order",
+                "operationId": "valueOrder",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreationOrderRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProcessOrderDetailResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CreationOrderRequest": {
+                "required": [
+                    "customerId"
+                ],
+                "type": "object",
+                "properties": {
+                    "customerId": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ProcessOrderDetailResponse": {
+                "type": "object",
+                "properties": {
+                    "total": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            }
+        }
+    }
+}
